@@ -1,0 +1,78 @@
+#include <Servo.h>
+
+const int m1p = 6,
+          m1m = 7,
+          m2p = 46,
+          m2m = 45;
+void setup() {
+    pinMode(6, OUTPUT); // M1+
+    pinMode(7, OUTPUT); // M1-
+    pinMode(46, OUTPUT); // M2+
+    pinMode(45, OUTPUT); // M2-
+}
+
+void forward(const int p, const int m) {
+    analogWrite(p, 255);
+    analogWrite(m, 0);
+}
+void backward(const int p, const int m) {
+    analogWrite(p, 0);
+    analogWrite(m, 255);
+}
+void stay(const int p, const int m) {
+    analogWrite(p, 0);
+    analogWrite(m, 0);
+}
+
+void forw() {
+    forward(m2p, m2m);
+    backward(m1p, m1m);
+}
+
+void left() {
+    forward(m2p, m2m);
+    backward(m1p, m1m);
+}
+
+void right() {
+    backward(m2p, m2m);
+    forward(m1p, m1m);
+}
+
+void back() {
+    backward(m2p, m2m);
+    forward(m1p, m1m);
+}
+
+void stop() {
+    stay(m2p, m2m);
+    stay(m1p, m1m);
+}
+
+void loop() {
+    forw();
+    // едем вперед
+    delay(2000);
+    stop();
+    // стоим
+    delay(2000);
+    back();
+    // едем назад
+    delay(2000);
+    stop();
+    // стоим
+    delay(2000);
+    left();
+    //влево
+    delay(2000);
+    stop();
+    // стоим
+    delay(2000);
+    right();
+    //вправо
+    delay(2000);
+    stop();
+    // стоим
+    delay(2000);
+    return;
+}
