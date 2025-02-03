@@ -9,44 +9,30 @@ void setup() {
     pinMode(45, OUTPUT); // M2-
 }
 
-void forward() {
-    digitalWrite(6, HIGH);
-    digitalWrite(7, LOW);
+void change_speed(int speed1, int speed2) {
+  analogWrite(6, speed1 * (speed1 > 0));
+  analogWrite(7, -1 * speed1 * (speed1 < 0));
 
-    digitalWrite(45, HIGH);
-    digitalWrite(46, LOW);
+  analogWrite(45, speed2 * (speed2 > 0));
+  analogWrite(46, -1 * speed2 * (speed2 < 0));
 }
-
-void backward() {
-    digitalWrite(6, LOW);
-    digitalWrite(7, HIGH);
-
-    digitalWrite(45, LOW);
-    digitalWrite(46, HIGH);
-
-}
-
-void stop() {
-    digitalWrite(6, LOW);
-    digitalWrite(7, LOW);
-
-    digitalWrite(45, LOW);
-    digitalWrite(46, LOW);
-
-}
-
-void left() {
-    digitalWrite(6, LOW);
-    digitalWrite(7, HIGH);
-
-    digitalWrite(45, HIGH);
-    digitalWrite(46, LOW);
-}
-
-void right() {
-    digitalWrite(6, HIGH);
-    digitalWrite(7, LOW);
-
-    digitalWrite(45, LOW);
-    digitalWrite(46, HIGH);
+void loop() {
+    change_speed(100, 0);
+    delay(2500);
+    change_speed(0, 0);
+    delay(5000);
+    change_speed(0, 100);
+    delay(2500);
+    change_speed(0, 0);
+    delay(5000);
+    change_speed(100, 100);
+    delay(2500);
+    change_speed(0, 0);
+    delay(5000);
+    change_speed(-100, -100);
+    delay(2500);
+    change_speed(0, 0);
+    delay(5000);
+    
+    return;
 }
