@@ -1,0 +1,105 @@
+#include <Servo.h>
+
+int val;
+const int cain1, cain2;
+const int picin1, picin2;
+const int picout1, picout2;
+const int caout1, caout2;
+const int pupupu; // серво
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(4, OUTPUT);
+    pinMode(5, OUTPUT);
+    pinMode(6, OUTPUT);
+    pinMode(7, OUTPUT);
+}
+
+
+void move_(int sp_l, int sp_r){
+  digitalWrite(4, sp_l < 0);
+  digitalWrite(7, sp_r < 0);
+
+  analogWrite(5, constrain(abs(sp_l), 0, 255));
+  analogWrite(6, constrain(abs(sp_r), 0, 255));
+}
+
+void cpin(bool is) {
+    digitalWrite(cain1, is == 1);
+    digitalWrite(cain2, is == 0);
+    delay(50);
+
+    digitalWrite(cain1, 0);
+    digitalWrite(cain2, 0);
+}
+
+void pickin(bool is) {
+    digitalWrite(picin1, is == 1);
+    digitalWrite(picin2, is == 0);
+    delay(100);
+
+    digitalWrite(picin1, 0);
+    digitalWrite(picin2, 0);
+}
+
+void cpout(bool is) {
+    digitalWrite(caout1, is == 1);
+    digitalWrite(caout2, is == 0);
+    delay(50);
+
+    digitalWrite(caout1, 0);
+    digitalWrite(caout2, 0);
+}
+
+void povorotout(bool is) {
+
+  // пока не знаю как реализую потому что не уверен в серво
+
+}
+
+void loop() {
+    if (Serial.available()) {
+        val = Serial.read();
+        switch val {
+            case 0:
+                move_(0, 0);
+                break;
+            case 1:
+                move_(100, 100);
+                break;
+            case 2:
+                move_(-100, -100);
+                break;
+            case 3:
+                move_(0, 100);
+                break;
+            case 4:
+                move_(100, 0);
+                break;
+            case 5:
+                cpin(1);
+                break;
+            case 6:
+                cpin(0);
+                break;
+            case 7:
+                pickin(1);
+                break;
+            case 8:
+                pickin(0);
+                break;
+            case 9:
+                cpout(1);
+                break;
+            case 10:
+                cpout(0);
+                break;
+            case 11:
+                povorotout(1);
+                break;
+            case 12:
+                povorotout(0);
+                break;
+        }
+    }
+}
