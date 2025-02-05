@@ -1,11 +1,19 @@
 #include <Servo.h>
 
 int val;
-const int cain1, cain2;
-const int picin1, picin2;
-const int picout1, picout2;
-const int caout1, caout2;
-const int pupupu; // серво
+const int cain1 = 0,
+          cain2 = 0;
+          
+const int picin1 = 0,
+          picin2 = 0;
+          // надо будет поставить реальные пины
+const int picout1 = 0,
+          picout2 = 0;
+          
+const int caout1 = 0,
+          caout2 = 0;
+          
+const int pupupu = 0; // серво
 
 void setup() {
     Serial1.begin(9600);
@@ -64,7 +72,7 @@ void loop() {
     bool povorotoutb = true;
     if (Serial1.available()) {
         val = Serial1.read(); // 13 - вперед 14 - назад 15 - влево 16 - вправо 17 - стояить; 1 - схватить/отпустить внутренним 2 - поднять/опустить внутренним 3 - схватить/отпустить внешним 4 - назад/вперед внешним 
-        switch val {
+        switch (val) {
             case 13:
                 move_(100, 100);
                 break;
@@ -85,8 +93,8 @@ void loop() {
                 cpinb = cpinb - 1;
                 break;
             case 2:
-                pickin(pickinb);
-                pickinb = pickinb - 1;
+                pickin(picinb);
+                picinb = picinb - 1;
                 break;
             case 3:
                 cpout(cpoutb);
